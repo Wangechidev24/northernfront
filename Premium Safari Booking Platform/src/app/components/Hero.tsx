@@ -30,10 +30,19 @@ export default function Hero({ onBookNow }: HeroProps) {
             <motion.p
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-[#d4a574] uppercase tracking-[0.3em] mb-6 text-sm"
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="text-white uppercase tracking-[0.3em] mb-6 text-sm"
             >
-              The Northern Frontier
+              Welcome to Northern Front
+            </motion.p>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3, duration: 0.8 }}
+              className="text-[#d4a574] uppercase tracking-[0.3em] mb-8 text-sm"
+            >
+              Northern Front Tours & Adventures
             </motion.p>
 
             <motion.h1
@@ -43,7 +52,7 @@ export default function Hero({ onBookNow }: HeroProps) {
               className="text-white mb-8 leading-[1.1]"
               style={{ fontSize: 'clamp(3rem, 8vw, 6.5rem)' }}
             >
-              Where the Wild Still Reigns
+              The Northern Circuit Awaits
             </motion.h1>
 
             <motion.p
@@ -52,8 +61,7 @@ export default function Hero({ onBookNow }: HeroProps) {
               transition={{ delay: 0.7, duration: 0.8 }}
               className="text-white/90 text-lg mb-12 max-w-xl leading-relaxed"
             >
-              Experience the untamed beauty of Northern Kenya—home to the
-              Northern Five and landscapes untouched by time.
+              From Ol Pejeta's rhino sanctuary to the jade waters of Lake Turkana—experience Kenya's wild north with master guide Ali B.
             </motion.p>
 
             <motion.button
@@ -65,7 +73,7 @@ export default function Hero({ onBookNow }: HeroProps) {
               onClick={onBookNow}
               className="group bg-[#d4a574] text-[#1a1511] px-10 py-5 text-lg font-medium flex items-center gap-3 hover:bg-[#c49563] transition-colors"
             >
-              Begin Your Safari
+              Begin Your Expedition
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </motion.button>
           </div>

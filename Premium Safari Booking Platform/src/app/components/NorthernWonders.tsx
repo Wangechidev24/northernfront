@@ -1,65 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'motion/react';
 import Masonry from 'react-responsive-masonry';
-
-interface Destination {
-  id: string;
-  name: string;
-  region: string;
-  image: string;
-  videoPlaceholder?: string;
-  description: string;
-}
-
-const destinations: Destination[] = [
-  {
-    id: '1',
-    name: 'Chalbi Desert',
-    region: 'Marsabit',
-    image: 'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=800',
-    description: 'A vast expanse of white salt flats stretching to infinity',
-  },
-  {
-    id: '2',
-    name: 'Samburu National Reserve',
-    region: 'Samburu',
-    image:
-      'https://images.unsplash.com/photo-1535338881181-3646e5ab2ee2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-    description: 'Home to the Northern Five and the Singing Wells',
-  },
-  {
-    id: '3',
-    name: 'Suguta Valley',
-    region: 'Turkana',
-    image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=800',
-    description: 'Volcanic moonscape where flamingos dance',
-  },
-  {
-    id: '4',
-    name: 'Lake Turkana',
-    region: 'Turkana',
-    image: 'https://images.unsplash.com/photo-1516026672322-bc52d61a55d5?w=800',
-    description: 'The Jade Sea—birthplace of humanity',
-  },
-  {
-    id: '5',
-    name: 'Nabuyatom Crater',
-    region: 'Turkana',
-    image: 'https://images.unsplash.com/photo-1589802829985-817e51171b92?w=800',
-    description: 'Ancient volcanic cauldron with sulfuric springs',
-  },
-  {
-    id: '6',
-    name: 'Matthews Range',
-    region: 'Samburu',
-    image:
-      'https://images.unsplash.com/photo-1535680012278-64a3a310cba9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
-    description: 'Mist-shrouded mountain forest where elephants roam',
-  },
-];
+import { getAllDestinations } from '../../utils/destinations';
 
 export default function NorthernWonders() {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const destinations = getAllDestinations();
 
   return (
     <section className="py-32 px-8 lg:px-16 bg-[#1a1511]">
@@ -80,7 +26,15 @@ export default function NorthernWonders() {
           </p>
         </motion.div>
 
-        <Masonry columnsCount={3} gutter="24px">
+        <Masonry 
+          columnsCount={3}
+          columnsCountBreakPoints={{
+            350: 2,
+            750: 2,
+            900: 3,
+          }}
+          gutter="24px"
+        >
           {destinations.map((dest, index) => (
             <motion.div
               key={dest.id}
@@ -90,11 +44,11 @@ export default function NorthernWonders() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               onMouseEnter={() => setHoveredId(dest.id)}
               onMouseLeave={() => setHoveredId(null)}
-              className="relative group cursor-pointer overflow-hidden"
+              className="relative group cursor-pointer overflow-hidden rounded-lg shadow-lg hover:shadow-xl transition-shadow"
             >
-              <div className="relative aspect-[4/5] overflow-hidden">
+              <div className="relative w-full h-full min-h-80">
                 <motion.img
-                  src={dest.image}
+                  src={dest.gridImage}
                   alt={dest.name}
                   className="w-full h-full object-cover"
                   animate={{
@@ -104,10 +58,10 @@ export default function NorthernWonders() {
                 />
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
 
                 {/* Content */}
-                <div className="absolute inset-0 flex flex-col justify-end p-6">
+                <div className="absolute inset-0 flex flex-col justify-end p-4 sm:p-6">
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{
@@ -119,11 +73,11 @@ export default function NorthernWonders() {
                     <p className="text-[#d4a574] text-xs uppercase tracking-wider mb-2">
                       {dest.region}
                     </p>
-                    <h3 className="text-white text-2xl font-medium mb-2">
+                    <h3 className="text-white text-xl sm:text-2xl font-medium mb-2 line-clamp-2">
                       {dest.name}
                     </h3>
                     <motion.p
-                      className="text-white/80 text-sm"
+                      className="text-white/90 text-xs sm:text-sm line-clamp-3"
                       initial={{ opacity: 0, height: 0 }}
                       animate={{
                         opacity: hoveredId === dest.id ? 1 : 0,
@@ -131,7 +85,7 @@ export default function NorthernWonders() {
                       }}
                       transition={{ duration: 0.3 }}
                     >
-                      {dest.description}
+                      {dest.shortDescription}
                     </motion.p>
                   </motion.div>
                 </div>
